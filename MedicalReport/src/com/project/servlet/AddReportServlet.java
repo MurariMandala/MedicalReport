@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mysql.cj.util.StringUtils;
 import com.project.been.objs.MedicalReportDtls;
 import com.project.been.objs.MedicalReportItemDtls;
+import com.project.been.objs.PharmacyDtls;
 import com.project.daoImpl.MedicalReportDAOImpl;
 import com.project.sdo.AbstractDtlsSDO;
 import com.project.sdo.ReportItemsSDO;
@@ -24,6 +25,8 @@ import com.project.util.ProjectReportsUtil;
 
 /**
  * Servlet implementation class AddReportServlet
+ * @author Murari Mandala
+ * 
  */
 
 public class AddReportServlet extends HttpServlet {
@@ -46,48 +49,206 @@ public class AddReportServlet extends HttpServlet {
 	System.out.println(formAction);
 	RequestDispatcher dispatcher;
 	if(formAction.equalsIgnoreCase("GOTO_REPORT")) {
+		MedicalReportDAOImpl daoImpl=new MedicalReportDAOImpl();
+		PharmacyDtls pdtls=new PharmacyDtls();
 		generateBillNoAndDate(request);
+		pdtls=daoImpl.getPharmacyDetails();
+		request.setAttribute("pdtls", pdtls);
 		request.setAttribute("dataset", "[]");
 		dispatcher=request.getRequestDispatcher("jsp/medicalReportCreation.jsp");
 		dispatcher.forward(request, response);
 	}
-	// today reports list
-	
-	/*if(formAction.equalsIgnoreCase("GOTO_TODAT_REPORT")) {
-		MedicalReportDAOImpl daoImpl=new MedicalReportDAOImpl();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
-	    Date date = new Date();  
-	    System.out.println(formatter.format(date));  
-	    String todayDate=formatter.format(date);
-	   MedicalReportDtls reportDtls=new MedicalReportDtls();
-	   reportDtls=daoImpl.getTodaysAllReports(todayDate);
-	   ArrayList<AbstractDtlsSDO> todaysReportList=new ArrayList<AbstractDtlsSDO>(); 
-	   todaysReportList=getReports(reportDtls);
-	   request.setAttribute("dataset",new ProjectReportsUtil().getReportsDataset(todaysReportList));
-	   dispatcher=request.getRequestDispatcher("todayReports.jsp");
-		dispatcher.forward(request, response);
-	   
-	}*/
-	
+
 	//report save
 	if(formAction.equalsIgnoreCase("REPORT_SAVE")) {
+		
 		MedicalReportDtls medReportDtls=new MedicalReportDtls();
+		
 		medReportDtls=getReportEntity(request);
+		request.setAttribute("parentId", medReportDtls.getPatientId());
 		MedicalReportDAOImpl daoImpl=new MedicalReportDAOImpl();
 		if(medReportDtls!=null) {
 			daoImpl.saveReport(medReportDtls);			
 			request.setAttribute("SuccessMsg", "Report saved successfully...");
-	//		dispatcher=request.getRequestDispatcher("GOTO_TODAT_REPORT");
-		
 			dispatcher = request.getRequestDispatcher("/todaysReport");
-			request.setAttribute("formAction","GOTO_TODAT_REPORT");
+			request.setAttribute("formAction","PRESENT_REPORT");
 			dispatcher.forward(request, response);
 		}		
 	
 	}
+	
+	// view the list of medicines
+	if(formAction.equalsIgnoreCase("LIST_MEDICINES")) {
+		MedicalReportDAOImpl dao=new MedicalReportDAOImpl();
+		MedicalReportDtls dtls=new MedicalReportDtls();
+		dtls=dao.getMedicineListForPopup(request);
+		ArrayList<AbstractDtlsSDO> listSdo=new ArrayList<AbstractDtlsSDO>();
+	    listSdo=getMedicines(dtls);
+	    if(listSdo.size()==0) {
+	    	request.setAttribute("dataset", "[]");
+	    }else {
+	    	request.setAttribute("dataset",new ProjectReportsUtil().getMedicinesDataset(listSdo));	
+	    }
+		dispatcher=request.getRequestDispatcher("jsp/addYourMedicines.jsp");
+		dispatcher.forward(request, response);
+	}
+	// save and update your medicines
+	if(formAction.equalsIgnoreCase("SAVE_MEDICINES")) {
+		MedicalReportDtls dtls=new MedicalReportDtls();
+		MedicalReportDAOImpl dao=new MedicalReportDAOImpl();
+		dtls=getMedicineEntity(request);
+		dao.saveMedicines(dtls);
+		dispatcher=request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
+	}
+	
 	}
 	
 	
+
+private MedicalReportDtls getMedicineEntity(HttpServletRequest request) {
+   String medicinesList=request.getParameter("medicinesList");
+   String updatedMedicinesList=request.getParameter("updateMedicinesList");
+   MedicalReportDtls dtls=new MedicalReportDtls();
+   ArrayList<MedicalReportItemDtls>itemsArr=new ArrayList<MedicalReportItemDtls>();
+   if(!StringUtils.isNullOrEmpty(medicinesList)) {
+	   String [] medicineListArr=medicinesList.split("~");
+	   for(int i=0;i<medicineListArr.length;i++) {
+		   String listItem=medicineListArr[i];
+		   String []listItemArr=listItem.split(",");
+		   
+		   String medicineName=listItemArr[0];
+		   String medicineId=listItemArr[1];
+		   String manufacture=listItemArr[2];
+		   String batchno=listItemArr[3];
+		   String expDate=listItemArr[4];
+		   String qty=listItemArr[5];
+		   String price=listItemArr[6];
+		   
+		   MedicalReportItemDtls itemDtls=new MedicalReportItemDtls();
+		   if(StringUtils.isNullOrEmpty(medicineId)) {
+			  Integer medcineId;
+			  Random idgenerate=new Random();
+			  medcineId=idgenerate.nextInt(10000);
+			  itemDtls.setMedicineId(medcineId);
+			   itemDtls.setMedicineName(medicineName);
+			   itemDtls.setManufacture(manufacture);
+			   itemDtls.setBatchNo(batchno);
+			   itemDtls.setExpDate(expDate);
+			   itemDtls.setQty(qty);
+			   itemDtls.setItemPrice(Double.parseDouble(price));
+			   itemsArr.add(itemDtls);
+		   }
+		
+		 
+	   }
+	   dtls.addReportItems(itemsArr);
+   }
+   if(!StringUtils.isNullOrEmpty(updatedMedicinesList)) {
+		 ArrayList<MedicalReportItemDtls>itemsUpdatedArr=new ArrayList<MedicalReportItemDtls>();
+	//	 String str="WOKRIDE-D,5456,WOKAHARD,PDECP01,2022-08,45,1687.5~,WOKRIDE-D,5456,WOKAHARD,PDECP01,2022-08,45,1687.5~,,,DOLO650,1234,INDIA,2020B,2021-05,30,500.0";
+		 String [] splitn=updatedMedicinesList.split("~");
+		 for(int i=0;i<splitn.length;i++) {
+		 	if(i==2||2<i) {
+		 		String nextsplit=splitn[i];
+		 		String splitted[] = nextsplit.split(","); 
+
+		 	StringBuffer sb = new StringBuffer();
+		 	String retrieveData = "";
+		 	System.out.println(splitted.length);
+		 	for(int j =0; j<splitted.length; j++){
+		 	    retrieveData = splitted[j];
+		 	    if((retrieveData.trim()).length()>0){
+
+		 	        if(i!=0){
+		 	            sb.append(",");
+		 	        }
+		 	        sb.append(retrieveData);
+
+		 	    }
+		 	}
+
+		 	updatedMedicinesList = sb.toString();
+		 	System.out.println(updatedMedicinesList.replaceFirst(",",""));
+		 	String nextStr=updatedMedicinesList.replaceFirst(",","");
+		 	
+		 	String [] nextstrSplit=nextStr.split(",");
+
+		 	String medicineName=nextstrSplit[0];
+		 	String medicineId=nextstrSplit[1];
+		 	String manufacture=nextstrSplit[2];
+		 	String batchNo=nextstrSplit[3];
+		 	String expdate=nextstrSplit[4];
+		 	String qty=nextstrSplit[5];
+		 	String price=nextstrSplit[6];
+		 	
+		 	MedicalReportItemDtls uitems=new MedicalReportItemDtls();
+		 	uitems.setMedicineId(Integer.parseInt(medicineId));
+		 	uitems.setMedicineName(medicineName);
+		 	   uitems.setManufacture(manufacture);
+		 	   uitems.setBatchNo(batchNo);
+		 	   uitems.setExpDate(expdate);
+		 	   uitems.setQty(qty);
+		 	   uitems.setItemPrice(Double.parseDouble(price));
+		 	   itemsUpdatedArr.add(uitems);
+
+		 	}else {
+		 		
+		 		String nextsplit=splitn[i];
+		 		System.out.println(nextsplit);
+		 		if(!StringUtils.isNullOrEmpty(nextsplit)) {
+		 			String[] itemUpdate=nextsplit.split(",");
+		 			
+		 			String medicineName=itemUpdate[0];
+		 			String medicineId=itemUpdate[1];
+		 			String manufacture=itemUpdate[2];
+		 			String batchNo=itemUpdate[3];
+		 			String expdate=itemUpdate[4];
+		 			String qty=itemUpdate[5];
+		 			String price=itemUpdate[6];
+		 			
+		 			MedicalReportItemDtls uitems=new MedicalReportItemDtls();
+		 			uitems.setMedicineId(Integer.parseInt(medicineId));
+		 			uitems.setMedicineName(medicineName);
+		 			   uitems.setManufacture(manufacture);
+		 			   uitems.setBatchNo(batchNo);
+		 			   uitems.setExpDate(expdate);
+		 			   uitems.setQty(qty);
+		 			   uitems.setItemPrice(Double.parseDouble(price));
+		 			   itemsUpdatedArr.add(uitems);
+		 			
+		 		}
+		 	}
+
+
+		 }	 
+		 dtls.addUpdatedItems(itemsUpdatedArr);
+   }
+
+		return dtls;
+	}
+
+private ArrayList<AbstractDtlsSDO> getMedicines(MedicalReportDtls dtls) {
+		List medicineList=dtls.getReportItems();
+		ArrayList<AbstractDtlsSDO>listSdo=new ArrayList<AbstractDtlsSDO>();
+		if(medicineList.size()>0) {
+			for(int i=0;i<medicineList.size();i++) {
+				MedicalReportItemDtls itemDtls=(MedicalReportItemDtls)medicineList.get(i);
+			    ReportItemsSDO sdo=new ReportItemsSDO();
+			    sdo.setMedicineId(itemDtls.getMedicineId());
+				sdo.setMedicineName(itemDtls.getMedicineName());
+			    sdo.setManufacture(itemDtls.getManufacture());
+				sdo.setBatchNo(itemDtls.getBatchNo());
+			    sdo.setExpDate(itemDtls.getExpDate());
+			    sdo.setQty(itemDtls.getQty());
+			    sdo.setItemPrice(itemDtls.getItemPrice());
+			    listSdo.add(sdo);
+			}
+		}
+		return listSdo;
+	}
+
+
 
 /*
 	private ArrayList<AbstractDtlsSDO> getReports(MedicalReportDtls reportDtls) {
@@ -132,7 +293,7 @@ public class AddReportServlet extends HttpServlet {
 	private MedicalReportDtls getReportEntity(HttpServletRequest request) {
      String patientName=request.getParameter("patientName");
      String saleType=request.getParameter("saleType");
-     String doctorName=request.getParameter("doctorName");
+   //  String doctorName=request.getParameter("doctorName");
      String billNo=request.getParameter("billNo");
      String billDate=request.getParameter("billDate");
      String totAmount=request.getParameter("totAmount");
@@ -140,6 +301,8 @@ public class AddReportServlet extends HttpServlet {
      String paidAmount=request.getParameter("paidAmount");
      String preparedBy=request.getParameter("preparedBy");
      String printedBy=request.getParameter("printedBy");
+     String sgstTax=request.getParameter("sgstTax");
+     String cgstTax=request.getParameter("cgstTax");
      
      Random idGenerate=new Random();
      int patientId=idGenerate.nextInt(10000);
@@ -147,13 +310,15 @@ public class AddReportServlet extends HttpServlet {
      MedicalReportDtls reportDtls=new MedicalReportDtls();
      reportDtls.setPatientId(patientId);
      reportDtls.setPatientName(patientName);
-     reportDtls.setDoctorName(doctorName);
+ //    reportDtls.setDoctorName(doctorName);
      reportDtls.setSalesType(saleType);
      reportDtls.setBillDate(billDate);
      reportDtls.setBillNo(Integer.parseInt(billNo));
      reportDtls.setTotAmount(Double.parseDouble(totAmount));
      reportDtls.setNetAmount(Double.parseDouble(netAmount));
      reportDtls.setPaidAmount(Double.parseDouble(paidAmount));
+     reportDtls.setCgstAmount(Double.parseDouble(cgstTax));
+     reportDtls.setSgstAmount(Double.parseDouble(sgstTax));
      reportDtls.setPreparedBy(preparedBy);
      reportDtls.setPrintedBy(printedBy);
      
@@ -185,10 +350,10 @@ public class AddReportServlet extends HttpServlet {
     		 String itemTotAmount=itemArr1[8];
     		 
     		 Integer itemId=0;
-    		/* String idArr=itemArr1[9];
+    		 String idArr=itemArr1[9];
     		 if(!StringUtils.isNullOrEmpty(idArr)) {
     			 itemId=Integer.parseInt(idArr);
-    		 }*/
+    		 }
     		
     		 
     		 MedicalReportItemDtls itemdtls=new MedicalReportItemDtls();
@@ -206,7 +371,7 @@ public class AddReportServlet extends HttpServlet {
     		 itemdtls.setCgstPer(cgstPer);
     		 itemdtls.setQty(qty);
     		 itemdtls.setItemPrice(Double.parseDouble(price));
-    		 itemdtls.setTotAmount(Double.parseDouble(totAmount));
+    		 itemdtls.setTotAmount(Double.parseDouble(itemTotAmount));
     		 reportItems.add(itemdtls);
     	 }
     	 reportDtls.addReportItems(reportItems);

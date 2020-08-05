@@ -17,6 +17,14 @@
     <servlet-name>TodaysReportServlet</servlet-name>
     <url-pattern>/todaysReport</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>UserManagementServlet</servlet-name>
+    <servlet-class>com.project.servlet.UserManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagementServlet</servlet-name>
+    <url-pattern>/userManagment</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

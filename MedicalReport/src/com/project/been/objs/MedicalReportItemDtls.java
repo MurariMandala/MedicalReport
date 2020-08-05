@@ -3,6 +3,7 @@ package com.project.been.objs;
 public class MedicalReportItemDtls {
 
 	 private int reportId;
+	 private int medicineId;
 	 private String medicineName;
 	 private String manufacture;
 	 private String batchNo;
@@ -72,6 +73,12 @@ public class MedicalReportItemDtls {
 	}
 	public void setTotAmount(Double totAmount) {
 		this.totAmount = totAmount;
+	}
+	public int getMedicineId() {
+		return medicineId;
+	}
+	public void setMedicineId(int medicineId) {
+		this.medicineId = medicineId;
 	}
 	 
 	 

@@ -17,8 +17,11 @@ public class MedicalReportDtls {
   private Double totAmount;
   private Double netAmount;
   private Double paidAmount;
+  private Double cgstAmount;
+  private Double sgstAmount;
   
   private ArrayList<MedicalReportItemDtls> reportItems=new ArrayList<MedicalReportItemDtls>();
+  private ArrayList<MedicalReportItemDtls> updatedItems=new ArrayList<MedicalReportItemDtls>();
 
 public int getPatientId() {
 	return patientId;
@@ -138,6 +141,30 @@ public ArrayList<MedicalReportItemDtls> getReportItems() {
 
 public void addReportItems(ArrayList<MedicalReportItemDtls> reportItems) {
 	this.reportItems = reportItems;
+}
+
+public Double getCgstAmount() {
+	return cgstAmount;
+}
+
+public void setCgstAmount(Double cgstAmount) {
+	this.cgstAmount = cgstAmount;
+}
+
+public Double getSgstAmount() {
+	return sgstAmount;
+}
+
+public void setSgstAmount(Double sgstAmount) {
+	this.sgstAmount = sgstAmount;
+}
+
+public ArrayList<MedicalReportItemDtls> getUpdatedItems() {
+	return updatedItems;
+}
+
+public void addUpdatedItems(ArrayList<MedicalReportItemDtls> updatedItems) {
+	this.updatedItems = updatedItems;
 }
   
   

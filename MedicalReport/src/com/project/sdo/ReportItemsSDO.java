@@ -5,6 +5,7 @@ import com.project.sdo.AbstractDtlsSDO;
 public class ReportItemsSDO extends AbstractDtlsSDO {
 	
 	private int reportId;
+	 private int medicineId;
 	 private String medicineName;
 	 private String manufacture;
 	 private String batchNo;
@@ -73,6 +74,12 @@ public class ReportItemsSDO extends AbstractDtlsSDO {
 	}
 	public void setTotAmount(Double totAmount) {
 		this.totAmount = totAmount;
+	}
+	public int getMedicineId() {
+		return medicineId;
+	}
+	public void setMedicineId(int i) {
+		this.medicineId = i;
 	}
 	 
 	 

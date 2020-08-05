@@ -35,4 +35,31 @@ public class ProjectReportsUtil {
 		 	return buff.toString();
 	}
 
+	public String getMedicinesDataset(ArrayList<AbstractDtlsSDO> reportItemsSdo) {
+	StringBuffer buff =new StringBuffer();
+	buff.append("[");
+	if(reportItemsSdo.size()>0) {
+		for(int i=0;i<reportItemsSdo.size();i++) {
+			ReportItemsSDO sdo=(ReportItemsSDO)reportItemsSdo.get(i);
+			buff.append("[")
+			
+			.append("\""+sdo.getMedicineName()+"\",")
+			.append("\""+sdo.getMedicineId()+"\",")
+			.append("\""+sdo.getManufacture()+"\",")
+			.append("\""+sdo.getBatchNo()+"\",")
+			.append("\""+sdo.getExpDate()+"\",")
+			.append("\""+sdo.getQty()+"\",")
+			.append("\""+sdo.getItemPrice()+"\"]");
+			
+			if(i<reportItemsSdo.size()-1) {
+				buff.append(",");
+			}
+		
+		}
+		buff.append("]");
+		System.out.println("Medicines Json :"+buff.toString());
+	}
+		return buff.toString();
+	}
+
 }
