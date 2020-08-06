@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+  <jsp:include page="allImportsFile.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +13,15 @@ body{
 </style>
 <meta charset="ISO-8859-1">
 <title class="title" >Medical Report</title>
-  <link rel = "icon" href = "images/medicine.png" type = "image/x-icon"> 
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src=https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="js/addMedicines.js"></script>
 </head>
 <body>
+<%
+if(request.getSession().getAttribute("pharmaDtls")==null){
+	response.sendRedirect("index.jsp");
+}
+%>
 <form action="addReport" name="yourMedicinesForm" method="post">
 <input type="hidden" name="medicinesList" value="">
 <input type="hidden" name="updateMedicinesList" value="">

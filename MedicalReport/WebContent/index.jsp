@@ -1,98 +1,154 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<title class="title" >Medical Report</title>
-  <link rel = "icon" href = "images/medicine.png" type = "image/x-icon"> 
-<style> /* 
-#mySidebar {
-/*   background-image: url("images/medicines.jpg");
- */  background-repeat: no-repeat, repeat;
-  background-color: #cccccc;
-  background-position: center; 
-  background-size: cover;
-  height: 500px;
-} */
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+body {
+	font-family: 'Varela Round', sans-serif;
+}
+.modal-login {		
+	color: #636363;
+	width: 350px;
+}
+.modal-login .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+}
+.modal-login .modal-header {
+	border-bottom: none;   
+	position: relative;
+	justify-content: center;
+}
+.modal-login h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -15px;
+}
+.modal-login .form-control:focus {
+	border-color: #70c5c0;
+}
+.modal-login .form-control, .modal-login .btn {
+	min-height: 40px;
+	border-radius: 3px; 
+}
+.modal-login .close {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+}	
+.modal-login .modal-footer {
+	background: #ecf0f1;
+	border-color: #dee4e7;
+	text-align: center;
+	justify-content: center;
+	margin: 0 -20px -20px;
+	border-radius: 5px;
+	font-size: 13px;
+}
+.modal-login .modal-footer a {
+	color: #999;
+}		
+.modal-login .avatar {
+	position: absolute;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: -70px;
+	width: 95px;
+	height: 95px;
+	border-radius: 50%;
+	z-index: 9;
+	background: #60c7c1;
+	padding: 15px;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.modal-login .avatar img {
+	width: 100%;
+}
+.modal-login.modal-dialog {
+	margin-top: 80px;
+}
+.modal-login .btn, .modal-login .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: #60c7c1 !important;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	border: none;
+}
+.modal-login .btn:hover, .modal-login .btn:focus {
+	background: #45aba6 !important;
+	outline: none;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
 </style>
 </head>
 <body>
-<form action="todaysReport" name="indexFormForTodaysReport" method="post">
-<input type="hidden" name="formAction" value=""></form>
-<form action="addReport" name="indexForm" method="post">
-<input type="hidden" name="formAction" value="">
-
-</form>
-
-<!-- <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none;" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large"
-  onclick="w3_close()">Close &times;</button>
-  <br>
-<button class="btn btn-info" name="addReport" id="addReport" onclick="addMedReport()"><span class="glyphicon glyphicon-plus-sign"></span> AddReport</button>
-<button class="btn btn-info" name="todayReports" id="todayReports" onclick="todayMedReport()"><span class="glyphicon glyphicon-calendar"></span> TodayReports</button>
-<button class="btn btn-info" name="addYourMedicines" id="addYourMedicines" onclick="addMedicines()"><span class="glyphicon glyphicon-plus-sign"></span> Add Your Medicines</button>
-</div> -->
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large"
-  onclick="w3_close()">Close &times;</button>
-  <a href="#"  name="addReport" id="addReport" onclick="addMedReport()" class="w3-bar-item w3-button">AddReport</a>
-  <a href="#"  name="todayReports" id="todayReports" onclick="todayMedReport()" class="w3-bar-item w3-button">TodayReports</a>
-  <a href="#" name="addYourMedicines" id="addYourMedicines" onclick="addMedicines()" class="w3-bar-item w3-button">Add Your Medicines</a>
-</div>
 <div id="main">
-
 <div class="w3-teal">
-  <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
     <h1>Medical Report</h1>
   </div>
-    <div class="w3-container">
-    <h3 align="right">Welcome Mr.Murari</h3>
-  </div>
-</div>
-
-<img src="images/doctor.jpg" alt="doctor" style="width:100%";height="50%">
-
-<div class="w3-container">
+<div class="text-center">
+	<!-- Button HTML (to Trigger Modal) -->
+	<a href="#myModal" class="trigger-btn" data-toggle="modal" style="color: white;">Login</a>
 </div>
 
 </div>
+<img src="images/doctor.jpg" alt="doctor" style="width:100%";height="5%">
+</div>
 
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-login">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="avatar">
+					<img src="/examples/images/avatar.png" alt="Avatar">
+				</div>				
+				<h4 class="modal-title">Member Login</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<form action="login" name="loginForm" method="post">
+				<input type="hidden" name="formAction" value="">
+					<div class="form-group">
+						<input type="text" class="form-control" name="userName" placeholder="Username" required="required">		
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" name="passWord" placeholder="Password" required="required">	
+					</div>        
+					<div class="form-group">
+						<button type="submit" onclick="doLogin()" class="btn btn-primary btn-lg btn-block login-btn">Login</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#">Forgot Password?</a>
+			</div>
+		</div>
+	</div>
+</div>     
+</body>
 <script type="text/javascript">
-function addMedicines(){
-	document.forms["indexForm"].elements["formAction"].value="LIST_MEDICINES";
-	document.forms["indexForm"].submit();
-}
-function addMedReport(){
-//	alert("1");
-	document.forms["indexForm"].elements["formAction"].value="GOTO_REPORT";
-document.forms["indexForm"].submit();
-   }
-function todayMedReport(){
-	//alert("1");
-	document.forms["indexFormForTodaysReport"].elements["formAction"].value="GOTO_TODAT_REPORT";
-document.forms["indexFormForTodaysReport"].submit();
-   }
-
-
-function w3_open() {
-  document.getElementById("main").style.marginLeft = "25%";
-  document.getElementById("mySidebar").style.width = "25%";
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("openNav").style.display = 'none';
-}
-function w3_close() {
-  document.getElementById("main").style.marginLeft = "0%";
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("openNav").style.display = "inline-block";
+function doLogin() {
+	document.forms["loginForm"].elements["formAction"].value="LOGIN";
+	document.forms["loginForm"].submit();
 }
 </script>
-
-</body>
 </html>

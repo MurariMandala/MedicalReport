@@ -1,7 +1,7 @@
 package com.project.been.objs;
 
 public class PharmacyDtls {
-  
+	private String userName;
 	private String pharmacyId;
 	private String gstInTaxId;
 	private String pharmacyName;
@@ -57,6 +57,12 @@ public class PharmacyDtls {
 	}
 	public void setDlNo(String dlNo) {
 		this.dlNo = dlNo;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

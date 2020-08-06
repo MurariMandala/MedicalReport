@@ -50,10 +50,10 @@ public class AddReportServlet extends HttpServlet {
 	RequestDispatcher dispatcher;
 	if(formAction.equalsIgnoreCase("GOTO_REPORT")) {
 		MedicalReportDAOImpl daoImpl=new MedicalReportDAOImpl();
-		PharmacyDtls pdtls=new PharmacyDtls();
+//		PharmacyDtls pdtls=new PharmacyDtls();
 		generateBillNoAndDate(request);
-		pdtls=daoImpl.getPharmacyDetails();
-		request.setAttribute("pdtls", pdtls);
+	//	pdtls=daoImpl.getPharmacyDetails();
+	//	request.setAttribute("pdtls", pdtls);
 		request.setAttribute("dataset", "[]");
 		dispatcher=request.getRequestDispatcher("jsp/medicalReportCreation.jsp");
 		dispatcher.forward(request, response);
