@@ -108,14 +108,14 @@ public class TodaysReportServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 		}
 //LIST_OF_MEDICINES  for popup		
-	if(formAction.equalsIgnoreCase("LIST_OF_MEDICINES")) {
+	if(formAction.equalsIgnoreCase("LIST_OF_MEDICINES")||formAction1.equalsIgnoreCase("LIST_OF_MEDICINES")) {
 		MedicalReportDAOImpl daoImpl=new MedicalReportDAOImpl();
 		MedicalReportDtls dtls=new MedicalReportDtls();
 		dtls=daoImpl.getMedicineListForPopup(request);
 		ArrayList<AbstractDtlsSDO>reportItemsSdo=new ArrayList<AbstractDtlsSDO>();
 		reportItemsSdo=getMedicines(dtls);
-		request.setAttribute("dataset",new ProjectReportsUtil().getMedicinesDataset(reportItemsSdo));
-		dispatcher=request.getRequestDispatcher("jsp/listOfMedicines.jsp");
+		request.setAttribute("listMedicinesDataSet",new ProjectReportsUtil().getMedicinesDataset(reportItemsSdo));
+		dispatcher=request.getRequestDispatcher("jsp/medicalReportCreation.jsp");
 		dispatcher.forward(request, response);
 	}
 	

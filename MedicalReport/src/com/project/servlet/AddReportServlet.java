@@ -55,7 +55,8 @@ public class AddReportServlet extends HttpServlet {
 	//	pdtls=daoImpl.getPharmacyDetails();
 	//	request.setAttribute("pdtls", pdtls);
 		request.setAttribute("dataset", "[]");
-		dispatcher=request.getRequestDispatcher("jsp/medicalReportCreation.jsp");
+		request.setAttribute("formAction", "LIST_OF_MEDICINES");
+		dispatcher=request.getRequestDispatcher("/todaysReport");
 		dispatcher.forward(request, response);
 	}
 
@@ -98,7 +99,7 @@ public class AddReportServlet extends HttpServlet {
 		MedicalReportDAOImpl dao=new MedicalReportDAOImpl();
 		dtls=getMedicineEntity(request);
 		dao.saveMedicines(dtls);
-		dispatcher=request.getRequestDispatcher("index.jsp");
+		dispatcher=request.getRequestDispatcher("home.jsp");
 		dispatcher.forward(request, response);
 	}
 	

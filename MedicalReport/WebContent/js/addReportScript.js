@@ -29,6 +29,19 @@ const app = {
 		alert("You should not enter more than actual qty : "+actualQty);
 		return false;
 	}
+	 var medicineName=document.getElementById("medicineName").value;
+		//  alert(medicineId);
+		  var data = dataTable.rows().data().length; 
+		  for(var i=0;i<data;i++){
+			  var data1 = dataTable.rows().data()[i];
+		   var arr = data1 .toString().split(',');
+		  
+		   var medName=arr[0]
+		   if(medName==medicineName){
+			   alert("this medicine is existed please checkout records");
+			   return false;
+			   }
+		   }
    const formData = this.buildForm();
         const addedRow = dataTable.row.add(formData).draw();
       //  addedRow.show().draw(false);
@@ -194,9 +207,9 @@ const app = {
 				  return false;
 			  },
   start() {
-	   var dataSet// =[["211","2020-03-04","HYD","null","Earthwork","0","Normal Soils","10074","2020-03-12","2020-03-04","11.0","3","21.0","12","27.72","231.00","dsfds","97790","0"]];
+	   var dataset=[["211","2020-03-04","HYD","null","Earthwork","0","Normal Soils","10074","2020-03-12","2020-03-04","11.0","3","21.0","12","27.72","231.00","dsfds","97790","0"]];
 			// [["1225","2020-02-25","","sand","Internal Plumbong","0","INTERNAL FLATS SAINTORY AND CP F","0","2020-02-15","2020-02-15","12.0","LUMPSUM","50.0","630.0","5","30.0","12.0","demo"],["1224","2020-02-24","","sand","External Plumbing","0","MANHOLE CHAMBER CONSTRUCT / GAL","0","2020-02-15","2020-02-15","20.0","LUMPSUM","12.0","244.8","0","0.0","20.0","demo"]];
-	//	alert(dataSet);
+		alert(dataSet);
     const dataTable = $('#reportItems').DataTable({
     	"searching": false,
     	"bPaginate": false,

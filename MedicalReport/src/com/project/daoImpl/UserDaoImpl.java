@@ -30,7 +30,18 @@ Connection conn=null;
 			dtls.setDlNo(rs.getString(7));
 			dtls.setDoctorName(rs.getString(8));
 			dtls.setUserName(rs.getString(9));
-
+			
+			String totalsQuery="select sum(PAID_AMOUNT) \"paidamount\",sum(CGST_AMOUNT) \"cgstTot\",sum(SGST_AMOUNT) \"sgstTot\" ,sum(CGST_PER)\"csgtPer\",sum(SGST_PER)\"sgstPer\",count(*) \"totSaleMedicines\"from medical_report_dtls";
+            PreparedStatement ps1=conn.prepareStatement(totalsQuery);
+            ResultSet rs1=ps1.executeQuery();
+            while(rs1.next()) {
+            	dtls.setTotalIncome(rs1.getString("paidamount"));
+            	dtls.setTotCgstAmount(rs1.getString("cgstTot"));
+            	dtls.setTotSgstAmount(rs1.getString("sgstTot"));
+            	dtls.setTotSaleMedicines(rs1.getString("totSaleMedicines"));
+            	dtls.setTotCgstPer(rs1.getString("csgtPer"));
+            	dtls.setTotSgstPer(rs1.getString("sgstPer"));
+            }
 		}
 		conn.close();
 	} catch (Exception e) {

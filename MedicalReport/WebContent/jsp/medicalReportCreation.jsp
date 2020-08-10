@@ -5,6 +5,7 @@
     <%@page import="com.project.been.objs.MedicalReportDtls" %>
     <%@page import="com.project.been.objs.PharmacyDtls" %>
     <jsp:include page="allImportsFile.jsp" />
+    <jsp:include page="listOfMedicines.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +13,20 @@
 body{
 /*  background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/ignasi_pattern_s.png"); */
 }
-
+.searchbtn{
+  float: left;
+  width: 15%;
+  padding: 5px;
+  color: black;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title class="title" >Medical Report</title>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="js/addReportScript.js"></script>
 </head>
 <style>
@@ -89,6 +99,10 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
 	response.sendRedirect("index.jsp");
 }
 %>
+<form action="todaysReport" method="post" width="1000px"; name="todayReportsForm">
+<input type="hidden" name="formAction" value="">
+
+</form>
 <form action="addReport" method="post" width="500px"; name="medicalReportCreationForm">
 <input type="hidden" name="addReportItems" value="">
  <input type="hidden" id="patientId" name="patientId" value="${patientId}" >
@@ -165,7 +179,7 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
  <tr><td> <label>Medicine Name</label>
      <input type="text" name="medicineName" id="medicineName" placeholder="Medicine Name" class="form-control" readonly>
      <input type="hidden" name="medicineId" id="medicineId" placeholder="Medicine ID" class="form-control" >
-      <button type="button" onclick="doSearch()"><i class="fa fa-search"></i></button></td>
+      <button type="button" class="searchbtn" href="#myModal"  data-toggle="modal" ><i class="fa fa-search"></i></button></td>
       <td><label class="col-md-2 control-label">Manufacture</label>
 				
             <input type="text" name="manufacture" id="manufacture" placeholder="Manufacture" class="form-control" readonly  ></td>
@@ -287,9 +301,11 @@ CGST TAX   :   ${cgstAmount}</p>
 /* alert(${patientId}); */
  function doSearch() {
 //	alert("doSearch");
-var Window;
+document.forms["todayReportsForm"].elements["formAction"].value="LIST_OF_MEDICINES";
+document.forms["todayReportsForm"].submit();
+/* var Window;
 	 Window=window.open("/MedicalReport/todaysReport?formAction=LIST_OF_MEDICINES&reqSource=medicine","_blank","height=600,width=1000,left=300,top=10,resizable=yes,scrollbars=yes,toolbar=yes,location=center,directories=no, status=yes");
-}
+ */}
 function doSave(){
 	//alert("1");
 	document.forms["medicalReportCreationForm"].elements["formAction"].value="REPORT_SAVE";

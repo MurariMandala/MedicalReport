@@ -88,6 +88,14 @@ const app = {
       console.log(addedRowNode);
       $(addedRowNode).addClass('highlight');
   //    this.confirmUpdateData(dataTable,"");
+
+  	  document.getElementById("medicineName").value='';
+  	  document.getElementById("medicineId").value='';
+  	  document.getElementById("manufacture").value='';
+  	  document.getElementById("batchNo").value='';
+  	  document.getElementById("expDate").value='';
+  	  document.getElementById("qty").value='';
+  	  document.getElementById("price").value='';
       
   },
   selectRow(dataTable) {
@@ -98,12 +106,15 @@ const app = {
       $(this).addClass('unselected');
 	  var str= dataTable.row('.unselected').data();
 	   var arr = str.toString().split(',');
-	   /*	   const index = baIdArr.indexOf(arr[20]);
-	   if (index > -1) {
-		   baIdArr.splice(index, 1);//no of items to be removed
-	   }
-*///	   alert('st1r:'+str);
+
 	   $(this).removeClass('unselected');
+	   document.getElementById("medicineName").value='';
+	  	  document.getElementById("medicineId").value='';
+	  	  document.getElementById("manufacture").value='';
+	  	  document.getElementById("batchNo").value='';
+	  	  document.getElementById("expDate").value='';
+	  	  document.getElementById("qty").value='';
+	  	  document.getElementById("price").value='';
 	  
     } else {
       var selItem=dataTable.$('tr.selected');
@@ -111,11 +122,7 @@ const app = {
       $(this).addClass('selected');
       var str= dataTable.row('.selected').data();
 	   var arr = str.toString().split(',');
-	//   baIdArr.push(arr[20]);
-//	   alert('str2:'+str);
-	  //  $(this).removeClass('selected');
-	    //selItems.push($(this));
-	    //$(this).addClass('xselected');
+	
 	   selItem.addClass('selected');
 	   	 
 	   //add in total
@@ -166,6 +173,11 @@ const app = {
     }
   },
   updateRow(dataTable,data){
+	     var str= dataTable.row('.selected').data();
+	 	if(str==undefined){
+	 		alert("you need to select one item to proceed update !");
+	 		return false;
+	 	}
 	  this.removeRow(dataTable) ;  
 	  this.addUpdatedRow(dataTable, data);
 	  
@@ -218,17 +230,11 @@ const app = {
 					   return false;
 				
 		  
-		
-	    //this.totMrnAmount(dataTable,"");
-		    //this.getWorkGSTAmount(dataTable,"");
 		  
 		  },
 		
 	
   start() {
-	 //  var dataSet// =[["211","2020-03-04","HYD","null","Earthwork","0","Normal Soils","10074","2020-03-12","2020-03-04","11.0","3","21.0","12","27.72","231.00","dsfds","97790","0"]];
-			// [["1225","2020-02-25","","sand","Internal Plumbong","0","INTERNAL FLATS SAINTORY AND CP F","0","2020-02-15","2020-02-15","12.0","LUMPSUM","50.0","630.0","5","30.0","12.0","demo"],["1224","2020-02-24","","sand","External Plumbing","0","MANHOLE CHAMBER CONSTRUCT / GAL","0","2020-02-15","2020-02-15","20.0","LUMPSUM","12.0","244.8","0","0.0","20.0","demo"]];
-	//	alert(dataSet);
     const dataTable = $('#medicines').DataTable({
     //	"searching": false,
     	"bPaginate": false,   //show entries

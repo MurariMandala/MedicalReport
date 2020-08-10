@@ -13,7 +13,7 @@ body{
 </style>
 <meta charset="ISO-8859-1">
 <title class="title" >Medical Report</title>
-
+ <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="js/addMedicines.js"></script>
 </head>
 <body>
@@ -25,18 +25,23 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
 <form action="addReport" name="yourMedicinesForm" method="post">
 <input type="hidden" name="medicinesList" value="">
 <input type="hidden" name="updateMedicinesList" value="">
-
+</form>
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large"
   onclick="w3_close()">Close &times;</button>
+    <a href="/MedicalReport/addReport?formAction=GOTO_REPORT"  name="addReport" id="addReport"  class="w3-bar-item w3-button">AddReport</a>
+    <a href="/MedicalReport/todaysReport?formAction=GOTO_TODAT_REPORT"  name="todayReports" id="todayReports" onclick="todayMedReport()" class="w3-bar-item w3-button">TodayReports</a>
+  
 </div>
-
+<div id="main">
 <div class="w3-teal">
   <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <a href="home.jsp" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-home"></span> Home</a>
   <div class="w3-container">
     <h1>Medical Report</h1>
   </div>
-    <div class="w3-container">
+    <div class="w3-container" align="right">
+
     <h3 align="right">Welcome Mr.Murari</h3>
   </div>
 </div>
@@ -74,11 +79,14 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
     
  
   <button class="btn btn-info" class="add" id="add"><span>Add</span></button>
-    <button class="btn btn-info" class="update" id="update"><span>Update</span></button></td> </tr>     
+    <button class="btn btn-info" class="update" id="update"><i class="material-icons">Update</i></button></td> </tr>     
  </tbody>    
  </table>
-<button class="btn btn-info" type="button" onclick="doSubmit()"><span>Submit</span></button>
-</form>
+
+<button class="btn btn-info" type="button" onclick="doSubmit()"><span class="glyphicon glyphicon-floppy-disk"> Submit</span></button>
+</div>
+
+
 </body>
 <script type="text/javascript">
 function doSubmit() {

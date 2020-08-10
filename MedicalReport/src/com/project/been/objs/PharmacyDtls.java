@@ -10,6 +10,12 @@ public class PharmacyDtls {
 	private String phoneNo;
 	private String gstInTaxNo;
 	private String dlNo;
+	private String totalIncome;
+	private String totCgstAmount;
+	private String totSgstAmount;
+	private String totSaleMedicines;
+	private String totCgstPer;
+	private String totSgstPer;
 	public String getPharmacyId() {
 		return pharmacyId;
 	}
@@ -63,6 +69,42 @@ public class PharmacyDtls {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getTotalIncome() {
+		return totalIncome;
+	}
+	public void setTotalIncome(String totalIncome) {
+		this.totalIncome = totalIncome;
+	}
+	public String getTotCgstAmount() {
+		return totCgstAmount;
+	}
+	public void setTotCgstAmount(String totCgstAmount) {
+		this.totCgstAmount = totCgstAmount;
+	}
+	public String getTotSgstAmount() {
+		return totSgstAmount;
+	}
+	public void setTotSgstAmount(String totSgstAmount) {
+		this.totSgstAmount = totSgstAmount;
+	}
+	public String getTotSaleMedicines() {
+		return totSaleMedicines;
+	}
+	public void setTotSaleMedicines(String totSaleMedicines) {
+		this.totSaleMedicines = totSaleMedicines;
+	}
+	public String getTotCgstPer() {
+		return totCgstPer;
+	}
+	public void setTotCgstPer(String totCgstPer) {
+		this.totCgstPer = totCgstPer;
+	}
+	public String getTotSgstPer() {
+		return totSgstPer;
+	}
+	public void setTotSgstPer(String totSgstPer) {
+		this.totSgstPer = totSgstPer;
 	}
 	
 	

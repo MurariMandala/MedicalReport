@@ -7,6 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title class="title" >Medical Report</title>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="js/addReportScript.js"></script> 
 </head>
 <style type="text/css">
@@ -44,6 +45,7 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
 
 <div class="w3-teal">
   <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <a href="home.jsp" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-home"></span> Home</a>
   <div class="w3-container">
     <h1>Medical Report</h1>
   </div>

@@ -4,16 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src=https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-<!-- jQuery library -->
 
 <style type="text/css">
-body{
-background-color:white;
- background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/ignasi_pattern_s.png");
+.modal-header {
+  background-color: #B3B9BD;
+  color: white;
+    
 }
 .modal-content {
     width: 1150px;
@@ -30,20 +26,21 @@ background-color:white;
 
   #medicines tr td { 
   	line-height: 12px; }
- 
+ #myModal {
 
+}
 </style>
 
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <script type="text/javascript">
-var dataSet=<c:out value="${dataset}" escapeXml="false"/>;
+var listMedicinesDataSet=<c:out value="${listMedicinesDataSet}" escapeXml="false"/>;
 //var dataSet=[["DOLO650","2020B","2021-05","30","500.0"]];;
 //alert(dataSet);
  
  $(document).ready(function() {
    var table= $('#medicines').DataTable( {
-        data: dataSet,
+        data: listMedicinesDataSet,
         columns: [
             { title: "Medicine Name" },
             { title: "Medicine Id" },
@@ -83,17 +80,24 @@ var dataSet=<c:out value="${dataset}" escapeXml="false"/>;
 				var price = arr[6]
 				var actualQty=arr[5]
 				var priceperone=price/qty;
-				window.opener.document.getElementById('priceperone').value = priceperone;
-				window.opener.document.getElementById('medicineName').value = medicineName;
-				window.opener.document.getElementById('medicineId').value = medicineId;
-				window.opener.document.getElementById('manufacture').value =manufacture;
-				window.opener.document.getElementById('batchNo').value =batchNo;
-				window.opener.document.getElementById('expDate').value =expDate;
-				window.opener.document.getElementById('qty').value = qty;
-				window.opener.document.getElementById('actualQty').value = actualQty;
-				window.opener.document.getElementById('price').value = price;
-			window.close();	  
+				document.getElementById('priceperone').value = priceperone;
+				document.getElementById('medicineName').value = medicineName;
+				document.getElementById('medicineId').value = medicineId;
+				document.getElementById('manufacture').value =manufacture;
+				document.getElementById('batchNo').value =batchNo;
+				document.getElementById('expDate').value =expDate;
+				document.getElementById('qty').value = qty;
+				document.getElementById('actualQty').value = actualQty;
+				document.getElementById('price').value = price;
+				hide();
+  
     }
+    function hide(){
+       // this will help in hide the model
+    	$("[data-dismiss=modal]").trigger({ type: "click" });
+
+ };
+
  
 } );
 
@@ -102,15 +106,22 @@ var dataSet=<c:out value="${dataset}" escapeXml="false"/>;
 <body>
 
 
-<div class="w3-teal">
-  <div class="w3-container">
-    <h1>List of Medicines</h1>
-  </div>
-    <div class="w3-container">
-    <h5 align="right">single click to select !</h5>
-  </div>
+
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-login">
+		<div class="modal-content">
+			<div class="modal-header">
+								
+				<h4 class="modal-title">List of Medicines</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                
+			</div>
+			<div class="modal-body">
+		<table id="medicines" class="cell-border" width="100%"></table>	</div>
+		</div>
+	</div>
 </div>
 
-<table id="medicines" class="cell-border" width="100%"></table>
 </body>
 </html>
