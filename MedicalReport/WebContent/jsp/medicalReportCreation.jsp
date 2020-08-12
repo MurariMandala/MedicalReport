@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
 <style type="text/css">
 body{
 /*  background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/ignasi_pattern_s.png"); */
@@ -168,9 +169,9 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
  <fieldset>
 <div class="col-md-8 col-md-offset-9">
 <table id="reportItems"  align="left" width="950px"></table>
-<div class="form-group col-xs-10 col-sm-2 col-md-4 col-lg-3">	
-	    <button type="button" name="Remove" value="Remove" id="remove"  class="btn del btn-delete btn-sm">
-          <span></span> Delete item </button> 
+<div class="form-group col-xs-10 col-sm-2 col-md-0 col-lg-3">	
+	    <button type="button" name="Remove" value="Remove" id="remove"  class="btn btn-danger">
+ Delete item <span class="glyphicon glyphicon-remove"></span></button> 
   </div>  
   </div> 
   <c:if test="${patientId ==0 || patientId==null}"> 

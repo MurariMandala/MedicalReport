@@ -37,9 +37,9 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large"
   onclick="w3_close()">Close &times;</button>
-  <a href="#"  name="addReport" id="addReport" onclick="addMedReport()" class="w3-bar-item w3-button">AddReport</a>
-  <a href="#"  name="todayReports" id="todayReports" onclick="todayMedReport()" class="w3-bar-item w3-button">TodayReports</a>
-  <a href="#" name="addYourMedicines" id="addYourMedicines" onclick="addMedicines()" class="w3-bar-item w3-button">Add Your Medicines</a>
+  <a href="#"  name="addReport" id="addReport" style="text-decoration: none;"onclick="addMedReport()" class="w3-bar-item w3-button">AddReport</a>
+  <a href="#"  name="todayReports" id="todayReports" style="text-decoration: none;"onclick="todayMedReport()" class="w3-bar-item w3-button">TodayReports</a>
+  <a href="#" name="addYourMedicines" id="addYourMedicines" style="text-decoration: none;"onclick="addMedicines()" class="w3-bar-item w3-button">Add Your Medicines</a>
 </div>
 <div id="main">
 

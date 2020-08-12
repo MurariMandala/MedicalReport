@@ -3,6 +3,11 @@
  
 <html lang="en">
 <head>
+<!-- Glyphy icon links -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
 <link rel="stylesheet" href="css/model.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,18 +18,29 @@
   height: 100px;
   border-radius: 30%;
 }
+
+.topright {
+  position: absolute;
+  top: 10px;
+  right: 70px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color:white;
+}
+
 </style>
 </head>
 <body>
 <div id="main">
 <div class="w3-teal">
   <div class="w3-container">
-    <h1>Medical Report</h1>
+    <h1><br>Medical Report</h1>
   </div>
-<div class="text-center">
-	<!-- Button HTML (to Trigger Modal) -->
-	<a href="#myModal" class="trigger-btn" data-toggle="modal" style="color: white;">Login</a>
-</div>
+    <div class="w3-container">
+   <a href="#myModal"  data-toggle="modal"  class="topright" >Login   <span class="glyphicon glyphicon-log-in"></span></a>
+  </div>
+
 
 </div>
 <img src="images/doctor.jpg" alt="doctor"  style="width:100%";height="5%">

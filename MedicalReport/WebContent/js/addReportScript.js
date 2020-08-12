@@ -157,11 +157,6 @@ const app = {
 					   this.confirmData(dataTable,"");
 					   return false;
 				
-		  
-		
-	    //this.totMrnAmount(dataTable,"");
-		    //this.getWorkGSTAmount(dataTable,"");
-		  
 		  },
 		  doCalGST(dataTable,data) {
 			
@@ -185,8 +180,6 @@ const app = {
 			  var totGstAmount=+totprice+sgstAmount+cgstAmount;
 		//	var totAmount= document.getElementById("totAmount").value;
 			 document.getElementById("totItemAmount").value=totGstAmount.toFixed(2);
-		    //this.totMrnAmount(dataTable,"");
-			    //this.getWorkGSTAmount(dataTable,"");
 				   return false;
 					
 			  },
@@ -207,9 +200,9 @@ const app = {
 				  return false;
 			  },
   start() {
-	   var dataset=[["211","2020-03-04","HYD","null","Earthwork","0","Normal Soils","10074","2020-03-12","2020-03-04","11.0","3","21.0","12","27.72","231.00","dsfds","97790","0"]];
+	//   var dataset=[["211","2020-03-04","HYD","null","Earthwork","0","Normal Soils","10074","2020-03-12","2020-03-04","11.0","3","21.0","12","27.72","231.00","dsfds","97790","0"]];
 			// [["1225","2020-02-25","","sand","Internal Plumbong","0","INTERNAL FLATS SAINTORY AND CP F","0","2020-02-15","2020-02-15","12.0","LUMPSUM","50.0","630.0","5","30.0","12.0","demo"],["1224","2020-02-24","","sand","External Plumbing","0","MANHOLE CHAMBER CONSTRUCT / GAL","0","2020-02-15","2020-02-15","20.0","LUMPSUM","12.0","244.8","0","0.0","20.0","demo"]];
-		alert(dataSet);
+	//	alert(dataSet);
     const dataTable = $('#reportItems').DataTable({
     	"searching": false,
     	"bPaginate": false,

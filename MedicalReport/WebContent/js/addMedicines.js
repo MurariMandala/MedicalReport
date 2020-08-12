@@ -22,6 +22,18 @@ const app = {
   addRow(dataTable, data) {
 	  var medicineId=document.getElementById("medicineId").value;
 	  var medicineName=document.getElementById("medicineName").value;
+	  var qty=document.getElementById("qty").value;
+	  var price=document.getElementById("price").value;
+	  if(medicineName==undefined ||  medicineName==''){
+		  alert("please provide the value for Medicine name");
+		  return false;
+	  }else if(qty==undefined || qty==''){
+		  alert("please provide the value for Quantity");
+		  return false;
+	  }else if(price==undefined || price==''){
+		  alert("please provide the value for Price");
+		  return false;
+	  }
 	//  alert(medicineId);
 	  var data = dataTable.rows().data().length; 
 	  for(var i=0;i<data;i++){
@@ -79,9 +91,9 @@ const app = {
 		
 	   }
 	  }
- 	//  alert(updateItem);
+ //	  alert(updateItem);
  	   updateItems=updateItems+'~'+updateItem;
- 	//   alert(updateItems);
+ 	//  alert(updateItems);
 	   document.forms["yourMedicinesForm"].elements["updateMedicinesList"].value=updateItems;
 	  
       const addedRowNode = addedRow.node();
@@ -178,10 +190,21 @@ const app = {
 	 		alert("you need to select one item to proceed update !");
 	 		return false;
 	 	}
-	  this.removeRow(dataTable) ;  
+	  this.removeUpdatedRow(dataTable) ;  
 	  this.addUpdatedRow(dataTable, data);
 	  
 	  return false;
+  },
+  removeUpdatedRow(dataTable,data){
+	  var data = dataTable.rows().data().length; 
+	  var data1 = dataTable.row('.selected').data(); 
+	
+		//   var arr = data1 .toString().split(',');
+		  
+				  dataTable.row('.selected').remove().draw( false );
+				  
+				   return false;
+			
   },
   confirmUpdateData(dataTable) {
 	  var data = dataTable.rows().data().length; 

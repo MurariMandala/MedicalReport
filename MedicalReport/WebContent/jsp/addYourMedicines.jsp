@@ -23,14 +23,15 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
 }
 %>
 <form action="addReport" name="yourMedicinesForm" method="post">
+<input type="hidden" name="formAction" value="">
 <input type="hidden" name="medicinesList" value="">
 <input type="hidden" name="updateMedicinesList" value="">
 </form>
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large"
   onclick="w3_close()">Close &times;</button>
-    <a href="/MedicalReport/addReport?formAction=GOTO_REPORT"  name="addReport" id="addReport"  class="w3-bar-item w3-button">AddReport</a>
-    <a href="/MedicalReport/todaysReport?formAction=GOTO_TODAT_REPORT"  name="todayReports" id="todayReports" onclick="todayMedReport()" class="w3-bar-item w3-button">TodayReports</a>
+    <a href="/MedicalReport/addReport?formAction=GOTO_REPORT" style="text-decoration: none;" name="addReport" id="addReport"  class="w3-bar-item w3-button">AddReport</a>
+    <a href="/MedicalReport/todaysReport?formAction=GOTO_TODAT_REPORT"  style="text-decoration: none;" name="todayReports" id="todayReports" onclick="todayMedReport()" class="w3-bar-item w3-button">TodayReports</a>
   
 </div>
 <div id="main">
@@ -46,10 +47,10 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
   </div>
 </div>
 
-<input type="hidden" name="formAction" value="">
-<table id="medicines" align="left" class="cell-border" width="50%">
-		    <button type="button" name="Remove" value="Remove" id="remove"  class="btn del btn-delete btn-sm">
-          <span></span> Delete item </button> </table>
+
+<table id="medicines" align="left" class="cell-border" width="50%"> </table>
+		    <button type="button" name="Remove" value="Remove" id="remove"  class="btn btn-danger" >
+           Delete item <span class="glyphicon glyphicon-remove"></span> </button>
 <table>
  <tbody>
  <tr><td> <label>Medicine Name</label>
@@ -74,23 +75,24 @@ if(request.getSession().getAttribute("pharmaDtls")==null){
                 </tr> <tr>     <td>
               <label class="col-md-2 control-label">Price</label>
 			<input type="text" name="price" id="price" placeholder="Price" class="form-control"   ></td>
- 
+ <td>
            
     
  
-  <button class="btn btn-info" class="add" id="add"><span>Add</span></button>
-    <button class="btn btn-info" class="update" id="update"><i class="material-icons">Update</i></button></td> </tr>     
- </tbody>    
+  <button class="btn btn-success" class="add" id="add">Add  <span class="glyphicon glyphicon-plus-sign"></span></button>
+  <button class="btn btn-primary" class="update" id="update"> Update  <span class="glyphicon glyphicon-pencil"></span></button></td> </tr>     
+ </tbody>    	
+ 
  </table>
 
-<button class="btn btn-info" type="button" onclick="doSubmit()"><span class="glyphicon glyphicon-floppy-disk"> Submit</span></button>
+<button class="btn btn-success" type="button" onclick="doSubmit()"><span class="glyphicon glyphicon-floppy-disk"> Submit</span></button>
 </div>
 
 
 </body>
 <script type="text/javascript">
 function doSubmit() {
-	alert("dosubmit");
+//	alert("dosubmit");
 	
 	document.forms["yourMedicinesForm"].elements["formAction"].value="SAVE_MEDICINES";
 	document.forms["yourMedicinesForm"].submit();
